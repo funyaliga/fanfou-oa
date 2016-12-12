@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const OAuth = require('OAuth').OAuth;
 
-const consumerKey = '7651f456762a44712e47de1e64d80b29'
-const consumerSecret = '2dc487cddfb3d7fa73496fbaafa07c17'
+const consumerKey = 'you consumerKey'
+const consumerSecret = 'you Secret'
 
 const apiHost = 'http://api.fanfou.com'
 
