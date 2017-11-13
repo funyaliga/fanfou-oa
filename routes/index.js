@@ -18,9 +18,10 @@ router.post('/test', async (ctx, next) => {
 })
 
 router.post('/auth', async (ctx, next) => {
-    // console.log('ctx', ctx, ctx.body, next)
+    const data = ctx.request.body
+    
     try {
-        const response = await ff.auth('', '')
+        const response = await ff.auth(data.username, data.password)
         ctx.status = 200
         ctx.body = { data: response }
     } catch (err) {
