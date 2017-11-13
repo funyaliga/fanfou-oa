@@ -4,12 +4,8 @@ import logger from 'koa-logger'
 import cors from 'koa-cors'
 import bodyparser from 'koa-bodyparser' //请求体JSON解析
 import routes from './routes'
-// console.log(routes.routes)
-const app = new Koa()
 
-// app.use(async ctx => {
-//     ctx.body = 'Hello World'
-// })
+const app = new Koa()
 
 app.use(cors())
 app.use(logger())

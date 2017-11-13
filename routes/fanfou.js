@@ -1,9 +1,10 @@
 import { OAuth } from 'OAuth'
 import axios from 'axios'
 import qs from 'querystring'
+import config from 'config'
 
-const consumerKey = '7651f456762a44712e47de1e64d80b29'
-const consumerSecret = '2dc487cddfb3d7fa73496fbaafa07c17'
+const consumerKey = config.consumerKey
+const consumerSecret = config.consumerSecret
 
 const apiHost = 'http://api.fanfou.com'
 

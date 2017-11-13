@@ -1,10 +1,11 @@
 import Router from 'koa-router'
 import axios from 'axios'
 import Fanfou from './fanfou'
+import config from 'config'
 
 const ff = new Fanfou({
-    "oauth_token": "258533-2a6e2c1f6d8961484f0edce0d96e80c3",
-    "oauth_token_secret": "516732eaf0ea9cd8811a405008ff9047",
+    "oauth_token": config.oauth_token,
+    "oauth_token_secret": config.oauth_token.oauth_token_secret,
 })
 
 const router = Router()
@@ -17,8 +18,9 @@ router.post('/test', async (ctx, next) => {
 })
 
 router.post('/auth', async (ctx, next) => {
+    // console.log('ctx', ctx, ctx.body, next)
     try {
-        const response = await ff.auth('ping88914@hotmail.com', 'fanpyadizleron')
+        const response = await ff.auth('', '')
         ctx.status = 200
         ctx.body = { data: response }
     } catch (err) {
