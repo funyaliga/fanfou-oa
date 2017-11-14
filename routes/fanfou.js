@@ -1,4 +1,4 @@
-import { OAuth } from 'OAuth'
+import { OAuth } from 'oauth'
 import axios from 'axios'
 import qs from 'querystring'
 import config from 'config'
