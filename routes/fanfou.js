@@ -38,9 +38,6 @@ class Fanfou {
             null, // nonceSize
             null // customHeaders
         )
-
-        this.oauth_token = options.oauth_token
-        this.oauth_token_secret = options.oauth_token_secret
     }
 
     auth(username, password) {
@@ -75,8 +72,8 @@ class Fanfou {
             }
         }).then((response) => {
             const { oauth_token, oauth_token_secret } = qs.parse(response.data)
-            this.oauth_token = oauth_token
-            this.oauth_token_secret = oauth_token_secret
+            // this.oauth_token = oauth_token
+            // this.oauth_token_secret = oauth_token_secret
 
             return {
                 oauth_token,
@@ -85,10 +82,9 @@ class Fanfou {
         })
     }
 
-    get(uri, params) {
-        const url = `${uri}?${qs.stringify(params)}`
-        const header = this.oauth.authHeader(url, this.oauth_token, this.oauth_token_secret, 'get')
-
+    get(oauth_token, oauth_token_secret, uri, params) {
+        const url = `http://api.fanfou.com${uri}.json?${qs.stringify(params)}`
+        const header = this.oauth.authHeader(url, oauth_token, oauth_token_secret, 'get')
         return axios({
             url,
             method: 'get',
@@ -100,19 +96,19 @@ class Fanfou {
         })
     }
 
-    post(uri, params) {
+    post(oauth_token, oauth_token_secret, uri, params) {
         const strParams = qs.stringify(params)
-        const url = `${uri}?${strParams}`
-        const header = this.oauth.authHeader(url, this.oauth_token, this.oauth_token_secret, 'post')
-        
+        const url = `http://api.fanfou.com${uri}.json`
+        const urlParams = `${url}?${strParams}`
+        const header = this.oauth.authHeader(urlParams, oauth_token, oauth_token_secret, 'post')
         return axios({
-            url: uri,
+            url: url,
             method: 'post',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': header
             },
-            data: qs.stringify(strParams)
+            data: strParams
         }).then((response) => {
             return response.data
         })
