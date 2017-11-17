@@ -36,17 +36,20 @@ router.post('/user/get', async (ctx, next) => {
             const user_data = await ff.get(ctx.oauth_token, ctx.oauth_token_secret, '/account/verify_credentials')
             ctx.status = 200
             ctx.body = { data: user_data }
-            ctx.set({
-                'x-auth-token': ctx.oauth_token,
-                'x-auth-secret': ctx.oauth_token_secret,
-            });
-
+        
         } else if (ctx.header.authorization) {
             const [ username, password ] = Base64.decode(ctx.header.authorization.replace('Basic ', '')).split(':')
             const { oauth_token, oauth_token_secret } = await ff.auth(username, password)
             const user_data = await ff.get(oauth_token, oauth_token_secret, '/account/verify_credentials')
             ctx.status = 200
             ctx.body = { data: user_data }
+            ctx.set({
+                'x-auth-token': oauth_token,
+                'x-auth-secret': oauth_token_secret,
+            });
+        } else {
+            ctx.status = 400
+            ctx.body = { data: 'no data' }
         }
     } catch (err) {
         ctx.status = 400

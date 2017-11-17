@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import http from 'http'
 import logger from 'koa-logger'
-import cors from 'koa-cors'
+import cors from '@koa/cors'
 import bodyparser from 'koa-bodyparser' //请求体JSON解析
 import routes from './routes'
 
@@ -18,7 +18,10 @@ app.use(async (ctx, next) => {
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 });
 
-app.use(cors())
+// 跨域，设置Access-Control-Expose-Headers可返回的数据
+app.use(cors({
+    exposeHeaders: ['x-auth-token, x-auth-secret']
+}))
 app.use(logger())
 app.use(bodyparser())
 app.use(routes.routes(), routes.allowedMethods())
