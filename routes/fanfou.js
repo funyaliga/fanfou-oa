@@ -83,7 +83,7 @@ class Fanfou {
     }
 
     get(oauth_token, oauth_token_secret, uri, params) {
-        const url = `http://api.fanfou.com${uri}.json?${qs.stringify(params)}`
+        const url = `http://api.fanfou.com${uri}.json?${params && qs.stringify(params)}`
         const header = this.oauth.authHeader(url, oauth_token, oauth_token_secret, 'get')
         return axios({
             url,
